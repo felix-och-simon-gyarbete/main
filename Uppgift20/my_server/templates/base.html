@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{%block title %}{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='mall.css')}}">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body class="bg-muted">
+	<div class="container bg-info">
+	
+	<header class="jumbotron">{% block header %}{% endblock %}</header>
+	{% for category, message in get_flashed_messages(with_categories=True) %}
+		<div class="alert-{{category}}">
+
+      	<p>{{ message }}</p>
+      	</div>
+	{% endfor %}
+	<nav class="navbar navbar-expand-sm bg-secondary bg-secondary">
+		<ul class="navbar-nav">
+		{% if session['logged_in'] %}
+		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('start')}}">Hem</a></li>
+		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('userPage')}}">Lista användare</a></li>
+		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('loggaUt')}}">Logga Ut</a></li>
+		{% else %}
+		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('start')}}">Hem</a></li>
+		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('login')}}">Logga in</a></li>
+		{% endif %} 
+		</ul>
+	</nav>
+	
+	<content class= "content">{% block content %}{% endblock %}</content>
+	<footer class="jumbotron bottom">blogportal.se hej hej</footer>
+	</div>
+	
+	
+</body>
+</html>

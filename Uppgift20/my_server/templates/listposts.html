@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+	{% block header %}
+	<h1>{% block title %} Lista på användare {% endblock %}</h1>
+	{% endblock %}
+{% block content %}
+<ul class="list-group ">
+	{% for post in posts %}
+	<li class="list-group-item">{{post.content}}</li>
+	{% endfor%}
+	<br>
+<ul>
+{% endblock %}

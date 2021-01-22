@@ -1,0 +1,5 @@
+{% extends 'errors/error_base.html' %}
+	{% block header %}
+	<h1>{% block title %} Index {% endblock %}</h1>
+	{% endblock %}
+{% block error %}<p class="bg-warning">Error 404: Sidan hittades inte</p>{% endblock %}
