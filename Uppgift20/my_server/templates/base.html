@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>{%block title %}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -13,13 +13,20 @@
 <body class="bg-muted">
     <div class="container lada">
 
-    <header class="jumbotron jumbotron-fluid header">Header</header>
+    <header class="jumbotron jumbotron-fluid header">{%block title %}{% endblock %}</header>
 	  
     <nav class="navbar navbar-expand-sm meny">
         <ul class="navbar-nav">
+        {% if session['logged_in'] %}
         <li class="nav-item"><a class="nav-link text-light" href="1">Hem</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="2">Produkter</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="3">Varukorg</a></li>
         <li class="nav-item"><a class="nav-link text-light" href="2">Logga ut</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="3">Logga in</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link text-light" href="2">Hem</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="3">Produkter</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="2">Logga ut</a></li>
+        {% endif %}
 
         </ul>
     </nav>
@@ -32,7 +39,7 @@
 
     	</div>
     </div>
-     <footer class="jumbotron jumbotron-fluid footer">Footer</footer>
+     <footer class="jumbotron jumbotron-fluid footer">{%block title %}{% endblock %}</footer>
 
 
 	</div>
