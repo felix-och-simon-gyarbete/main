@@ -13,14 +13,14 @@
 <body class="bg-muted">
 	<div class="container bg-info">
 	
-	<header class="jumbotron">{% block header %}{% endblock %}</header>
+	<header class="jumbotron jumbotron-fluid header">{% block header %}{% endblock %}</header>
 	{% for category, message in get_flashed_messages(with_categories=True) %}
 		<div class="alert-{{category}}">
 
       	<p>{{ message }}</p>
       	</div>
 	{% endfor %}
-	<nav class="navbar navbar-expand-sm bg-secondary bg-secondary">
+	<nav class="navbar navbar-expand-sm meny">
 		<ul class="navbar-nav">
 		{% if session['logged_in'] %}
 		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('start')}}">Hem</a></li>
@@ -34,7 +34,7 @@
 	</nav>
 	
 	<content class= "content">{% block content %}{% endblock %}</content>
-	<footer class="jumbotron bottom">blogportal.se hej hej</footer>
+	<footer class="jumbotron bottom">footer</footer>
 	</div>
 	
 	
