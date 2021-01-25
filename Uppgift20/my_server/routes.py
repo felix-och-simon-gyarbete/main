@@ -27,7 +27,7 @@ def login():
             if user['username'] == username and user['password'] == password:
                 session['logged_in'] = True
                 session['username'] = username
-                flash('Du är inloggad hej hej', 'info')
+                flash('Du är inloggad hej hej hej', 'info')
                 return redirect(url_for('userPage'))
         abort(401)
 
