@@ -10,7 +10,7 @@ def get_user(username):
     for user in users:
         if user['username'] == username:
             return user
-    return false
+    return False
 @ app.route('/')
 @ app.route('/index')
 def start():
@@ -21,13 +21,13 @@ def login():
     if request.method=='GET':
         return render_template('login.html')
     if request.method=='POST':
-        username = request.form['username']
+        username = request.form['username2']
         password = request.form['password']
         for user in users:
             if user['username'] == username and user['password'] == password:
                 session['logged_in'] = True
                 session['username'] = username
-                flash('Du är inloggad', 'info')
+                flash('Du är inloggad hej då', 'info')
                 return redirect(url_for('userPage'))
         abort(401)
 
