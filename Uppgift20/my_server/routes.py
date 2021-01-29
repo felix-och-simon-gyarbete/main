@@ -31,22 +31,12 @@ def login():
                 return redirect(url_for('userPage'))
         abort(401)
 
-@ app.route('/users')
-def userPage():
-    if not is_logged_in():
-        abort(401)
-    return render_template('listusers.html', users = users)
-@ app.route('/users/<username>')
-def postPage(username=""):
-    if not is_logged_in():
-        abort(401)
-    user_id = get_user(username)['id']
-    list_to_post = []
-    for post in posts:
-        if post['author_id'] == user_id:
-            list_to_post.append(post)
+@ app.route('/produkkter')
+def produkkter():
     
-    return render_template('listposts.html', posts = list_to_post )
+
+
+
 
 @ app.route('/logout')
 def loggaUt():

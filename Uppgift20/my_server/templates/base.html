@@ -24,10 +24,11 @@
 		<ul class="navbar-nav">
 		{% if session['logged_in'] %}
 		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('start')}}">Hem</a></li>
-		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('userPage')}}">Lista användare</a></li>
+		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('produkter')}}">Produkter</a></li>
 		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('loggaUt')}}">Logga Ut</a></li>
 		{% else %}
 		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('start')}}">Hem</a></li>
+		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('produkter')}}">Produkter</a></li>
 		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('login')}}">Logga in</a></li>
 		{% endif %} 
 		</ul>
