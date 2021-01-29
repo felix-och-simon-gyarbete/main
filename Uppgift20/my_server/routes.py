@@ -34,6 +34,15 @@ def login():
 @ app.route('/produkter')
 def produkter():
     return render_template('produkter.html')
+
+
+
+@ app.route('/varukorg')
+def varukorg():
+
+
+
+    
 @ app.route('/logout')
 def loggaUt():
     session['logged_in'] = False
