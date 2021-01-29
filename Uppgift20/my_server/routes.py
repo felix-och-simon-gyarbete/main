@@ -21,7 +21,7 @@ def login():
     if request.method=='GET':
         return render_template('login.html')
     if request.method=='POST':
-        username = request.form['username2']
+        username = request.form['username']
         password = request.form['password']
         for user in users:
             if user['username'] == username and user['password'] == password:
@@ -33,12 +33,7 @@ def login():
 
 @ app.route('/produkter')
 def produkter():
-    pass
-
-
-
-
-
+    return render_template('produkter.html')
 @ app.route('/logout')
 def loggaUt():
     session['logged_in'] = False
