@@ -21,7 +21,7 @@ def login():
     if request.method=='GET':
         return render_template('login.html')
     if request.method=='POST':
-        username = request.form['username2']
+        username = request.form['username']
         password = request.form['password']
         for user in users:
             if user['username'] == username and user['password'] == password:
