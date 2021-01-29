@@ -31,13 +31,9 @@ def login():
                 return redirect(url_for('userPage'))
         abort(401)
 
-@ app.route('/produkkter')
-def produkkter():
-    
-
-
-
-
+@ app.route('/produkter')
+def produkter():
+    return render_template('produkter.html')
 @ app.route('/logout')
 def loggaUt():
     session['logged_in'] = False
