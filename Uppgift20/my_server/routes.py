@@ -31,9 +31,10 @@ def login():
                 return redirect(url_for('userPage'))
         abort(401)
 
-@ app.route('/produkkter')
-def produkkter():
-    
+@ app.route('/produkter')
+def produkter():
+    pass
+
 
 
 
