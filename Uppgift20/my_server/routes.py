@@ -28,7 +28,7 @@ def login():
                 session['logged_in'] = True
                 session['username'] = username
                 flash('Du är inloggad hej då', 'info')
-                return redirect(url_for('userPage'))
+                return redirect(url_for('start'))
         abort(401)
 
 @ app.route('/produkter')
@@ -39,10 +39,11 @@ def produkter():
 
 @ app.route('/varukorg')
 def varukorg():
+    return render_template('varukorg.html')
 
 
 
-    
+
 @ app.route('/logout')
 def loggaUt():
     session['logged_in'] = False
