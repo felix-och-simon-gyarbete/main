@@ -1,6 +1,7 @@
 from my_server import app
 from flask import render_template, request, redirect, url_for, flash, session, abort
-from my_server.hardcoded_database import users, posts
+from my_server.database_handler import create_connection
+
 def is_logged_in():
     if 'logged_in' in session.keys() and session['logged_in']:
         return True
@@ -41,6 +42,19 @@ def produkter():
 def varukorg():
     return render_template('varukorg.html')
 
+@ app.route('/newUser',  methods=['POST', 'GET'])
+def newUser():
+    if request.method=='GET':
+        return render_template('newUser.html')
+    if request.method== 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        injection = (username, password, 0)
+        sql = 'INSERT INTO users(username, password,admin) VALUES (?,?,?)'
+        conn = create_connection()
+        cur = conn.cursor()
+        cur.execute(sql, injection)
+        return redirect(url_for('login'))
 
 
 

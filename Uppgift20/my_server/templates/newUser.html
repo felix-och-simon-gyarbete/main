@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+	{% block header %}
+	{% block title %}Skapa ny användare{% endblock %}
+	{% endblock %}
+{% block content %}
+    <h1>Skapa användare</h1>
+    <form action="/newUser" method="post">
+        <div class="form-group ">
+            <label for="username">Välj användarnamn</label>
+            <input id="username" class="form-control" type="text" name="username"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Välj lösenord</label>
+            <input id="password" class="form-control" type="password" name="password" />
+        </div>
+            <input type="submit" value="Skapa användare" />
+        
+        </form>
+{% endblock %}
