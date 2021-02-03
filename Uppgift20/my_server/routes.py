@@ -1,16 +1,17 @@
 from my_server import app
 from flask import render_template, request, redirect, url_for, flash, session, abort
 from my_server.database_handler import create_connection
-conn = create_connection()
-cur = conn.cursor()
-users = cur.execute('SELECT * FROM users')
-conn.close()
+
 def is_logged_in():
     if 'logged_in' in session.keys() and session['logged_in']:
         return True
     else:
         return False
 def get_user(username):
+    conn = create_connection()
+    cur = conn.cursor()
+    users = cur.execute('SELECT * FROM users')
+    conn.close()
     for user in users:
         if user[2] == username:
             return user
@@ -19,19 +20,28 @@ def get_user(username):
 @ app.route('/index')
 def start():
     return render_template('index.html')
+
 @ app.route('/login',  methods=['POST', 'GET'])
 def login():
     if request.method=='GET':
         return render_template('login.html')
     if request.method=='POST':
+        conn = create_connection()
+        cur = conn.cursor()
+        users = cur.execute('SELECT * FROM users')
+        
         username = request.form['username']
         password = request.form['password']
+        
         for user in users:
-            if user[2] == username and user[3] == password:
+            print(user)
+            if user[2] == username and user[1] == password:
                 session['logged_in'] = True
                 session['username'] = username
                 flash('Du är inloggad hej då', 'info')
+                conn.close()
                 return redirect(url_for('start'))
+
         abort(401)
 
 @ app.route('/produkter')
