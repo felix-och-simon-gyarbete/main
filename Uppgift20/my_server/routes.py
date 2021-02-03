@@ -1,7 +1,10 @@
 from my_server import app
 from flask import render_template, request, redirect, url_for, flash, session, abort
 from my_server.database_handler import create_connection
-
+conn = create_connection()
+cur = conn.cursor()
+users = cur.execute('SELECT * FROM users')
+conn.close()
 def is_logged_in():
     if 'logged_in' in session.keys() and session['logged_in']:
         return True
@@ -9,13 +12,12 @@ def is_logged_in():
         return False
 def get_user(username):
     for user in users:
-        if user['username'] == username:
+        if user[2] == username:
             return user
     return False
 @ app.route('/')
 @ app.route('/index')
 def start():
-    print(users)
     return render_template('index.html')
 @ app.route('/login',  methods=['POST', 'GET'])
 def login():
@@ -42,7 +44,7 @@ def produkter():
 def varukorg():
     return render_template('varukorg.html')
 
-@ app.route('/newUser',  methods=['POST', 'GET'])
+@ app.route('/newUser', methods=['POST', 'GET'])
 def newUser():
     if request.method=='GET':
         return render_template('newUser.html')
@@ -51,12 +53,13 @@ def newUser():
         password = request.form['password']
         injection = (username, password, 0)
         sql = 'INSERT INTO users(username, password,admin) VALUES (?,?,?)'
+        print(sql)
         conn = create_connection()
         cur = conn.cursor()
         cur.execute(sql, injection)
+        conn.commit()
+        conn.close()
         return redirect(url_for('login'))
-
-
 
 @ app.route('/logout')
 def loggaUt():
