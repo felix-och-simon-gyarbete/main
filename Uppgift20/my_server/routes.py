@@ -15,7 +15,6 @@ def get_user(username):
 @ app.route('/')
 @ app.route('/index')
 def start():
-    print(users)
     return render_template('index.html')
 @ app.route('/login',  methods=['POST', 'GET'])
 def login():
