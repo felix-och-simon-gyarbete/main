@@ -11,7 +11,6 @@ def get_user(username):
     conn = create_connection()
     cur = conn.cursor()
     users = cur.execute('SELECT * FROM users')
-    conn.close()
     for user in users:
         if user[2] == username:
             return user
@@ -34,7 +33,6 @@ def login():
         password = request.form['password']
         
         for user in users:
-            print(user)
             if user[2] == username and user[1] == password:
                 session['logged_in'] = True
                 session['username'] = username
@@ -48,19 +46,26 @@ def login():
 def produkter():
     return render_template('produkter.html')
 
-
-def läggTillProdukt(produkt_id):
+@ app.route('/lagg_till/<produkt_id>')
+def laggTillProdukt(produkt_id=""):
     if is_logged_in():
-        username = session['username']
-        injection = produkt_id
-        sql = "SELECT produkt_id FROM produkter WHERE produkt_id ==(?)"
         conn = create_connection()
         cur = conn.cursor()
+        username = session['username']
+        user_id = get_user(username)[0]
+        sql = "SELECT korg_id FROM varukorg WHERE user_id = (?)"
+        injection = user_id
+        korg_id = cur.execute(sql, injection)[1]
+        injection = produkt_id
+        sql = "SELECT produkt_id FROM produkter WHERE produkt_id ==(?)"
         produkt = cur.execute(sql, injection)
-        sql = "INSERT INTO produkter(produkt_id) VALUES(?) WHERE username == (?)"
-        injection = (produkt,username)
+        sql = "INSERT INTO korg_har VALUES (?,?)"
+        injection = (korg_id,produkt)
         cur.execute(sql, injection)
         conn.commit()
+        produkt_namn = produkt[1]
+        flash(f"Produkten{produkt_namn} har lagts till i varukorgen", "info")
+        return render_template('produkter.html')
     else:
         flash("Du måste logga in för att lägga till produkter i varukorgen", 'info')
         return redirect(url_for('login'))
@@ -77,7 +82,6 @@ def newUser():
         password = request.form['password']
         injection = (username, password, 0)
         sql = 'INSERT INTO users(username, password,admin) VALUES (?,?,?)'
-        print(sql)
         conn = create_connection()
         cur = conn.cursor()
         cur.execute(sql, injection)
