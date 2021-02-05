@@ -49,7 +49,21 @@ def produkter():
     return render_template('produkter.html')
 
 
-
+def läggTillProdukt(produkt_id):
+    if is_logged_in():
+        username = session['username']
+        injection = produkt_id
+        sql = "SELECT produkt_id FROM produkter WHERE produkt_id ==(?)"
+        conn = create_connection()
+        cur = conn.cursor()
+        produkt = cur.execute(sql, injection)
+        sql = "INSERT INTO produkter(produkt_id) VALUES(?) WHERE username == (?)"
+        injection = (produkt,username)
+        cur.execute(sql, injection)
+        conn.commit()
+    else:
+        flash("Du måste logga in för att lägga till produkter i varukorgen", 'info')
+        return redirect(url_for('login'))
 @ app.route('/varukorg')
 def varukorg():
     return render_template('varukorg.html')
