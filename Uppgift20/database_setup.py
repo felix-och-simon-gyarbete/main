@@ -23,6 +23,6 @@ sql = '''CREATE TABLE IF NOT EXISTS produkter(
 		)'''
 cur.execute(sql)
 lista = [(1, 'Hamburgare', 10, "Jävligt god"), (2, 'Cheese', 5, "Rätt schysst"), (3, 'Bantningsmedel', 100, "Inte för alla"), (4, 'Tjockisar', 20, "Väldigt tjocka"),(5, 'Dampbarn',19 , "dampiga som fan"), (6, 'Chonksel', 0, "ta med släp när ni hämtar"),]
-cur.executemany("INSERT INTO produkter VALUES (?,?,?)", lista)
+cur.executemany("INSERT INTO produkter VALUES (?,?,?,?)", lista)
 
 conn.commit()
