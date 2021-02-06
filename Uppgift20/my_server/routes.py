@@ -53,17 +53,16 @@ def laggTillProdukt(produkt_id=""):
         cur = conn.cursor()
         username = session['username']
         user_id = get_user(username)[0]
+        sql = "SELECT produkt_id FROM produkter WHERE produkt_id = (?)"
+        produkt_id = cur.execute(sql, produkt_id)
         sql = "SELECT korg_id FROM varukorg WHERE user_id = (?)"
-        injection = user_id
-        korg_id = cur.execute(sql, injection)[1]
-        injection = produkt_id
-        sql = "SELECT produkt_id FROM produkter WHERE produkt_id ==(?)"
-        produkt = cur.execute(sql, injection)
-        sql = "INSERT INTO korg_har VALUES (?,?)"
-        injection = (korg_id,produkt)
+        korg_id = cur.execute(sql, user_id)
+        sql = "INSERT INTO korg_har(produkt_id, korg_id) VALUES (?,?)"
+        injection = (produkt_id, korg_id)
         cur.execute(sql, injection)
+        sql = 'SELECT namn FROM produkter WHERE produkt_id = (?)'
+        produkt_namn = cur.execute(sql, produkt_id)
         conn.commit()
-        produkt_namn = produkt[1]
         flash(f"Produkten{produkt_namn} har lagts till i varukorgen", "info")
         return render_template('produkter.html')
     else:
