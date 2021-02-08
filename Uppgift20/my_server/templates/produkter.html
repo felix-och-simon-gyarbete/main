@@ -1,70 +1,36 @@
 {% extends 'base.html' %}
-	{% block header %}
-	<h1>{% block title %} Produkter {% endblock %}</h1>
-	{% endblock %}
+{% block header %}
+<h1>{% block title %} Produkter {% endblock %}</h1>
+{% endblock %}
 {% block content %}
-    <h1>Våra Produkter</h1>
-    <div class="container">
-        <div class="row mb-4">
-          <div class="col-sm">
-            <div class="card">
-                <img src="jeans3.jpg" alt="Denim Jeans" style="width:100%">
-                <h1>Tailored Jeans</h1>
-                <p class="price">$19.99</p>
-                <p>Some text about the jeans..</p>
-                <p><button href="{{url_for('laggTillProdukt', produkt_id = 1)}}">Add to Cart</button></p>
-              </div>
-          </div>
-          <div class="col-sm">
-            <div class="card">
-                <img src="jeans3.jpg" alt="Denim Jeans" style="width:100%">
-                <h1>Tailored Jeans</h1>
-                <p class="price">$19.99</p>
-                <p>Some text about the jeans..</p>
-                <p><button href="{{url_for('laggTillProdukt', produkt_id = 2)}}">Add to Cart</button></p>
-              </div>
-          </div>
-          <div class="col-sm">
-            <div class="card">
-                <img src="jeans3.jpg" alt="Denim Jeans" style="width:100%">
-                <h1>Bantningsmedel</h1>
-                <p class="price">$19.99</p>
-                <p>Some text about the jeans..</p>
-                <p><a href="{{url_for('laggTillProdukt', produkt_id = 3)}}"><button>Add to Cart</button></a></p>
-              </div>
-          </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-sm">
-              <div class="card">
-                  <img src="jeans3.jpg" alt="Denim Jeans" style="width:100%">
-                  <h1>Tailored Jeans</h1>
-                  <p class="price">$19.99</p>
-                  <p>Some text about the jeans..</p>
-                  <p><button href="{{url_for('laggTillProdukt', produkt_id = 4)}}">Add to Cart</button></p>
-                </div>
-            </div>
-            <div class="col-sm">
-              <div class="card">
-                  <img src="jeans3.jpg" alt="Denim Jeans" style="width:100%">
-                  <h1>Tailored Jeans</h1>
-                  <p class="price">$19.99</p>
-                  <p>Some text about the jeans..</p>
-                  <p><button href="{{url_for('laggTillProdukt', produkt_id = 5)}}">Add to Cart</button></p>
-                </div>
-            </div>
-            <div class="col-sm">
-              <div class="card">
-                  <img src="jeans3.jpg" alt="Denim Jeans" style="width:100%">
-                  <h1>Tailored Jeans</h1>
-                  <p class="price">$19.99</p>
-                  <p>Some text about the jeans..</p>
-                  <p><button href="{{url_for('laggTillProdukt',produkt_id = 6)}}">Add to Cart</button></p>
-                </div>
-            </div>
-          </div>
-      </div>
+<h1>Våra Produkter</h1>
+
+<div class="container">
+  <div class="row mb-4">
+    {% for row in rows1 %}
+    <div class="col-sm">
+
+      <img src="{{row[0]}}.jpg" alt="{{row[1]}}" style="width:100%">
+      <h1>{{row[1]}}</h1>
+      <p>{{row[2]}}</p>
+      <p>{{row[3]}}</p>
+      <p><a href="{{url_for('laggTillProdukt', produkt_id = row[0])}}"><button>Add to Cart</button></a></p>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="row mb-4">
+    {% for row in rows2 %}
+    <div class="col-sm">
+      <img src="{{row[0]}}.jpg" alt="{{row[1]}}" style="width:100%">
+      <h1>{{row[1]}}</h1>
+      <p>{{row[2]}}</p>
+      <p>{{row[3]}}</p>
+      <p><a href="{{url_for('laggTillProdukt', produkt_id = row[0])}}"><button>Add to Cart</button></a></p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
 {% block footer %}
-    <h1>Produkts be here</h1>
+<h1>Produkts be here</h1>
 {% endblock %}

@@ -44,30 +44,38 @@ def login():
 
 @ app.route('/produkter')
 def produkter():
-    return render_template('produkter.html')
+   
+    conn = create_connection()
+    cur = conn.cursor()
+    sql = "SELECT * FROM produkter WHERE produkt_id = 1 OR 2 OR 3"
+    rows1 = cur.execute(sql)
+    sql = "SELECT * FROM produkter WHERE produkt_id = 4 OR 5 OR 6"
+    rows2 = cur.execute(sql)
+    return render_template('produkter.html', rows1 = rows1, rows2 = rows2)
 
 @ app.route('/lagg_till/<produkt_id>')
 def laggTillProdukt(produkt_id=""):
-    if is_logged_in():
-        conn = create_connection()
-        cur = conn.cursor()
-        username = session['username']
-        user_id = get_user(username)[0]
-        sql = "SELECT produkt_id FROM produkter WHERE produkt_id = (?)"
-        produkt_id = cur.execute(sql, produkt_id)
-        sql = "SELECT korg_id FROM varukorg WHERE user_id = (?)"
-        korg_id = cur.execute(sql, user_id)
-        sql = "INSERT INTO korg_har(produkt_id, korg_id) VALUES (?,?)"
-        injection = (produkt_id, korg_id)
-        cur.execute(sql, injection)
-        sql = 'SELECT namn FROM produkter WHERE produkt_id = (?)'
-        produkt_namn = cur.execute(sql, produkt_id)
-        conn.commit()
-        flash(f"Produkten{produkt_namn} har lagts till i varukorgen", "info")
-        return render_template('produkter.html')
-    else:
+    if not is_logged_in():
         flash("Du måste logga in för att lägga till produkter i varukorgen", 'info')
         return redirect(url_for('login'))
+    produkt_id = int(produkt_id)
+    conn = create_connection()
+    cur = conn.cursor()
+    username = session['username']
+    user_id = get_user(username)[0]
+    sql = 'SELECT * FROM produkter WHERE produkt_id = (?)'
+    produkt = cur.execute(sql, (produkt_id,))
+    sql = "SELECT * FROM varukorg WHERE user_id = (?)"
+    korg_id = cur.execute(sql, (user_id,))
+    print(korg_id)
+    sql = "INSERT INTO korg_har(produkt_id, korg_id) VALUES (?,?)"
+    injection = (produkt_id, korg_id)
+    cur.execute(sql, injection)
+    sql = 'SELECT namn FROM produkter WHERE produkt_id = (?)'
+    produkt_namn = cur.execute(sql, (produkt_id,))
+    conn.commit()
+    flash(f"Produkten{produkt_namn} har lagts till i varukorgen", "info")
+    return render_template('produkter.html')
 @ app.route('/varukorg')
 def varukorg():
     return render_template('varukorg.html')
