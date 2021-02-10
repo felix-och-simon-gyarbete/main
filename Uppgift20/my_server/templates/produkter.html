@@ -6,29 +6,23 @@
 <h1>Våra Produkter</h1>
 
 <div class="container">
-  <div class="row mb-4">
-    {% for row in rows1 %}
+  <div class="row mb-4"> 
+  {% for row in rows %}
     <div class="col-sm">
-
+      <div class="card">
       <img src="{{row[0]}}.jpg" alt="{{row[1]}}" style="width:100%">
       <h1>{{row[1]}}</h1>
       <p>{{row[2]}}</p>
       <p>{{row[3]}}</p>
       <p><a href="{{url_for('laggTillProdukt', produkt_id = row[0])}}"><button>Add to Cart</button></a></p>
     </div>
-    {% endfor %}
-  </div>
-  <div class="row mb-4">
-    {% for row in rows2 %}
-    <div class="col-sm">
-      <img src="{{row[0]}}.jpg" alt="{{row[1]}}" style="width:100%">
-      <h1>{{row[1]}}</h1>
-      <p>{{row[2]}}</p>
-      <p>{{row[3]}}</p>
-      <p><a href="{{url_for('laggTillProdukt', produkt_id = row[0])}}"><button>Add to Cart</button></a></p>
     </div>
-    {% endfor %}
-  </div>
+  {% if loop.index % 3 == 0 %}
+  </div><div class="row mb-4">
+  {% endif %}
+  
+  {% endfor %}
+  
 </div>
 {% endblock %}
 {% block footer %}

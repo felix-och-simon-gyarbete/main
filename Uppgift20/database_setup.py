@@ -28,7 +28,7 @@ sql = '''CREATE TABLE IF NOT EXISTS korg_har(
 		korg_id INTEGER REFERENCES varukorg(korg_id)
 		)'''
 cur.execute(sql)
-lista = [(1, 'Hamburgare', 10, "Jävligt god"), (2, 'Cheese', 5, "Rätt schysst"), (3, 'Bantningsmedel', 100, "Inte för alla"), (4, 'Tjockisar', 20, "Väldigt tjocka"),(5, 'Dampbarn',19 , "dampiga som fan"), (6, 'Chonksel', 0, "ta med släp när ni hämtar"),]
-cur.executemany("INSERT INTO produkter VALUES (?,?,?,?)", lista)
+lista = [( 'Hamburgare', 10, "Jävligt god"), ('Cheese', 5, "Rätt schysst"), ( 'Bantningsmedel', 100, "Inte för alla"), (4, 'Tjockisar', 20, "Väldigt tjocka"),(5, 'Dampbarn',19 , "dampiga som fan"), (6, 'Chonksel', 0, "ta med släp när ni hämtar"),]
+cur.executemany("INSERT INTO produkter(namn, pris, beskrivning) VALUES (?,?,?)", lista)
 
 conn.commit()

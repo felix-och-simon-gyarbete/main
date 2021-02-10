@@ -44,14 +44,11 @@ def login():
 
 @ app.route('/produkter')
 def produkter():
-   
     conn = create_connection()
     cur = conn.cursor()
-    sql = "SELECT * FROM produkter WHERE produkt_id = 1 OR 2 OR 3"
-    rows1 = cur.execute(sql)
-    sql = "SELECT * FROM produkter WHERE produkt_id = 4 OR 5 OR 6"
-    rows2 = cur.execute(sql)
-    return render_template('produkter.html', rows1 = rows1, rows2 = rows2)
+    sql = "SELECT * FROM produkter"
+    rows = cur.execute(sql)
+    return render_template('produkter.html', rows = rows)
 
 @ app.route('/lagg_till/<produkt_id>')
 def laggTillProdukt(produkt_id=""):
@@ -66,16 +63,17 @@ def laggTillProdukt(produkt_id=""):
     sql = 'SELECT * FROM produkter WHERE produkt_id = (?)'
     produkt = cur.execute(sql, (produkt_id,))
     sql = "SELECT * FROM varukorg WHERE user_id = (?)"
-    korg_id = cur.execute(sql, (user_id,))
-    print(korg_id)
+    cur.execute(sql, (user_id,))
+    korg_id = cur.fetchone()
     sql = "INSERT INTO korg_har(produkt_id, korg_id) VALUES (?,?)"
     injection = (produkt_id, korg_id)
     cur.execute(sql, injection)
     sql = 'SELECT namn FROM produkter WHERE produkt_id = (?)'
-    produkt_namn = cur.execute(sql, (produkt_id,))
+    cur.execute(sql, (produkt_id,))
+    produkt_namn = cur.fetchone()
     conn.commit()
     flash(f"Produkten{produkt_namn} har lagts till i varukorgen", "info")
-    return render_template('produkter.html')
+    return redirect(url_for('produkter'))
 @ app.route('/varukorg')
 def varukorg():
     return render_template('varukorg.html')
