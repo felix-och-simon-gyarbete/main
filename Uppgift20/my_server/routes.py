@@ -71,8 +71,9 @@ def laggTillProdukt(produkt_id=""):
     sql = 'SELECT namn FROM produkter WHERE produkt_id = (?)'
     cur.execute(sql, (produkt_id,))
     produkt_namn = cur.fetchone()
+    produkt_namn = "".join(produkt_namn)
     conn.commit()
-    flash(f"Produkten{produkt_namn} har lagts till i varukorgen", "info")
+    flash(f"Produkten {produkt_namn} har lagts till i varukorgen", "info")
     return redirect(url_for('produkter'))
 @ app.route('/varukorg')
 def varukorg():
