@@ -74,7 +74,6 @@ def laggTillProdukt(produkt_id=""):
     return redirect(url_for('produkter'))
 @ app.route('/varukorg')
 def varukorg():
-    #sql = "SELECT korg_id FROM varukorg WHERE "
     return render_template('varukorg.html')
 
 @ app.route('/newUser', methods=['POST', 'GET'])
