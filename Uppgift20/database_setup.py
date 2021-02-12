@@ -10,12 +10,6 @@ sql = '''CREATE TABLE IF NOT EXISTS users(
 		)'''
 
 cur.execute(sql)
-sql = '''CREATE TABLE IF NOT EXISTS varukorg(
-		user_id INTEGER REFERENCES users(user_id),
-		korg_id INTEGER PRIMARY KEY
-		)'''
-
-cur.execute(sql)
 sql = '''CREATE TABLE IF NOT EXISTS produkter(
 		produkt_id INTEGER PRIMARY KEY,
 		namn TEXT NOT NULL,
@@ -23,12 +17,12 @@ sql = '''CREATE TABLE IF NOT EXISTS produkter(
 		beskrivning TEXT NOT NULL
 		)'''
 cur.execute(sql)
-sql = '''CREATE TABLE IF NOT EXISTS korg_har(
+sql = '''CREATE TABLE IF NOT EXISTS har(
 		produkt_id INTEGER REFERENCES produkter(produkt_id),
-		korg_id INTEGER REFERENCES varukorg(korg_id)
+		user_id INTEGER REFERENCES users(user_id)
 		)'''
 cur.execute(sql)
-lista = [( 'Hamburgare', 10, "Jävligt god"), ('Cheese', 5, "Rätt schysst"), ( 'Bantningsmedel', 100, "Inte för alla"), (4, 'Tjockisar', 20, "Väldigt tjocka"),(5, 'Dampbarn',19 , "dampiga som fan"), (6, 'Chonksel', 0, "ta med släp när ni hämtar"),]
+lista = [('Hamburgare', 10, "Jävligt god"), ('Cheese', 5, "Rätt schysst"), ( 'Bantningsmedel', 100, "Inte för alla"), ( 'Tjockisar', 20, "Väldigt tjocka"), ('Dampbarn',19 , "dampiga som fan"), ('Chonksel', 0, "ta med släp när ni hämtar")]
 cur.executemany("INSERT INTO produkter(namn, pris, beskrivning) VALUES (?,?,?)", lista)
 
 conn.commit()

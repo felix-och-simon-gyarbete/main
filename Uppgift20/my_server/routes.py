@@ -61,12 +61,9 @@ def laggTillProdukt(produkt_id=""):
     username = session['username']
     user_id = get_user(username)[0]
     sql = 'SELECT * FROM produkter WHERE produkt_id = (?)'
-    produkt = cur.execute(sql, (produkt_id,))
-    sql = "SELECT * FROM varukorg WHERE user_id = (?)"
     cur.execute(sql, (user_id,))
-    korg_id = cur.fetchone()
-    sql = "INSERT INTO korg_har(produkt_id, korg_id) VALUES (?,?)"
-    injection = (produkt_id, korg_id)
+    sql = "INSERT INTO har(produkt_id, user_id) VALUES (?,?)"
+    injection = (produkt_id, user_id)
     cur.execute(sql, injection)
     sql = 'SELECT namn FROM produkter WHERE produkt_id = (?)'
     cur.execute(sql, (produkt_id,))
@@ -77,6 +74,7 @@ def laggTillProdukt(produkt_id=""):
     return redirect(url_for('produkter'))
 @ app.route('/varukorg')
 def varukorg():
+    #sql = "SELECT korg_id FROM varukorg WHERE "
     return render_template('varukorg.html')
 
 @ app.route('/newUser', methods=['POST', 'GET'])

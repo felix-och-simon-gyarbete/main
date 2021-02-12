@@ -1,7 +1,29 @@
 {% extends 'base.html' %}
 	{% block header %}
-	<h1>{% block title %} Webbshop {% endblock %}</h1>
+	<h1>{% block title %} Varukorg {% endblock %}</h1>
 	{% endblock %}
 {% block content %}
-
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 bg-white card"> 
+				<table class="table table-striped">
+				<thead>
+				  <tr>
+					<th>Namn</th>
+					<th>Pries</th>
+					<th>Antal</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr>
+					<td>tjockis</td>
+					<td>tjockis</td>
+					<td>Tjockis</td>
+				  </tr>
+				</tbody>
+			  </table></div>
+			<div class="col-sm-1"></div>
+			<div class="col-sm-3 bg-primary card"> dish</div>
+		</div>
+	</div>
 {% endblock %}
