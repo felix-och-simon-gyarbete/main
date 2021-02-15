@@ -1,29 +1,34 @@
 {% extends 'base.html' %}
-	{% block header %}
-	<h1>{% block title %} Varukorg {% endblock %}</h1>
-	{% endblock %}
+{% block header %}
+<h1>{% block title %} Varukorg {% endblock %}</h1>
+{% endblock %}
 {% block content %}
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8 bg-white card"> 
-				<table class="table table-striped">
+<div class="container">
+	<div class="row">
+
+		<div class="col-sm-8 bg-white card">
+			<table class="table table-striped">
 				<thead>
-				  <tr>
-					<th>Namn</th>
-					<th>Pries</th>
-					<th>Antal</th>
-				  </tr>
+					<tr>
+						<th>Namn</th>
+						<th>Pris</th>
+						<th>Antal</th>
+						<th></th>
+					</tr>
 				</thead>
 				<tbody>
-				  <tr>
-					<td>tjockis</td>
-					<td>tjockis</td>
-					<td>Tjockis</td>
-				  </tr>
+					{% for product in products %}
+					<tr>
+						<td>{{product[0]}}</td>
+						<td>{{product[1]}}kr</td>
+						<td>{{product[2]}}</td>
+						<td><a>🗑</a></td>
+					</tr>
+					{% endfor %}
 				</tbody>
-			  </table></div>
-			<div class="col-sm-1"></div>
-			<div class="col-sm-3 bg-primary card"> dish</div>
+			</table>
 		</div>
+		<div class="col-sm-3 bg-primary card"> dish</div>
 	</div>
+</div>
 {% endblock %}

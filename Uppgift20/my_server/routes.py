@@ -72,9 +72,15 @@ def laggTillProdukt(produkt_id=""):
     conn.commit()
     flash(f"Produkten {produkt_namn} har lagts till i varukorgen", "info")
     return redirect(url_for('produkter'))
+
 @ app.route('/varukorg')
 def varukorg():
-    return render_template('varukorg.html')
+    user_id  = get_user(session['username'])[0]
+    sql = 'SELECT produkter.namn, produkter.pris, count(*) FROM har, produkter WHERE produkter.produkt_id = har.produkt_id AND har.user_id = (?) GROUP BY produkter.namn'
+    conn = create_connection()
+    cur = conn.cursor()
+    products = cur.execute(sql, (user_id,))
+    return render_template('varukorg.html', products = products)
 
 @ app.route('/newUser', methods=['POST', 'GET'])
 def newUser():
