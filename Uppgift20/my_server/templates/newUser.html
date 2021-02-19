@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 	{% block header %}
-	{% block title %}Skapa ny användare{% endblock %}
+	<h1 class="text-center">{% block title %} Bara Bussiness! Simon och Fellans Webbshop {% endblock %}</h1>
 	{% endblock %}
 {% block content %}
-    <h1>Skapa användare</h1>
+    <h1 class="ml-4">Skapa användare</h1>
     <form action="/newUser" method="post">
         <div class="form-group ">
             <label for="username">Välj användarnamn</label>

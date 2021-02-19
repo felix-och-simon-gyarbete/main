@@ -13,7 +13,7 @@
 <body class="bg-muted">
 	<div class="container min-vh-100 bg-info">
 	
-	<header class="jumbotron jumbotron-fluid header">{% block header %}{% endblock %}</header>
+	<header class="jumbotron jumbotron-fluid header card">{% block header %}{% endblock %}</header>
 	{% for category, message in get_flashed_messages(with_categories=True) %}
 		<div class="alert-{{category}}">
 
@@ -36,7 +36,7 @@
 	</nav>
 	
 	<content class= "content">{% block content %}{% endblock %}</content>
-	<footer class="jumbotron mt-4">{% block footer %}{% endblock %}</footer>
+	<footer class="jumbotron mt-4 card">{% block footer %}{% endblock %}</footer>
 	</div>
 	
 	
