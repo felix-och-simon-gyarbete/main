@@ -19,10 +19,10 @@
 				<tbody>
 					{% for product in products %}
 					<tr>
-						<td>{{product[0]}}</td>
-						<td>{{product[1]}}kr</td>
-						<td>{{product[2]}}</td>
-						<td><a>🗑</a></td>
+						<td>{{product[1]}}</td>
+						<td>{{product[2]}}kr</td>
+						<td>{{product[3]}}</td>
+						<td><a onclick="delete_product('{{product[0]}}')">🗑</a></td>
 					</tr>
 					{% endfor %}
 				</tbody>
