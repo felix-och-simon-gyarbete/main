@@ -28,7 +28,6 @@ def login():
         conn = create_connection()
         cur = conn.cursor()
         users = cur.execute('SELECT * FROM users')
-        
         username = request.form['username']
         password = request.form['password']
         
@@ -36,6 +35,7 @@ def login():
             if user[2] == username and user[1] == password:
                 session['logged_in'] = True
                 session['username'] = username
+                session['user_id'] = get_user(username)[0]
                 flash('Du är inloggad hej då', 'info')
                 conn.close()
                 return redirect(url_for('start'))
@@ -76,7 +76,7 @@ def laggTillProdukt(produkt_id=""):
 @ app.route('/varukorg')
 def varukorg():
     user_id  = get_user(session['username'])[0]
-    sql = 'SELECT produkter.namn, produkter.pris, count(*) FROM har, produkter WHERE produkter.produkt_id = har.produkt_id AND har.user_id = (?) GROUP BY produkter.namn'
+    sql = 'SELECT produkter.produkt_id, produkter.namn, produkter.pris, count(*) FROM har, produkter WHERE produkter.produkt_id = har.produkt_id AND har.user_id = (?) GROUP BY produkter.namn'
     conn = create_connection()
     cur = conn.cursor()
     products = cur.execute(sql, (user_id,))
@@ -97,6 +97,21 @@ def newUser():
         conn.commit()
         conn.close()
         return redirect(url_for('login'))
+
+@ app.route('/delete', methods=['POST'])
+def delete():
+    conn = create_connection()
+    cur = conn.cursor()
+    id = request.form['id']
+    id = int(id)
+    sql = "DELETE FROM har WHERE produkt_id = (?) AND user_id = (?)"
+    user_id = session['user_id']
+    print(f"Produkt id: {id}  user_id: {user_id}")
+    injection = (id, user_id)
+    print(injection)
+    cur.execute(sql, injection)
+    conn.commit()
+    return redirect(url_for('varukorg'))
 
 @ app.route('/logout')
 def loggaUt():

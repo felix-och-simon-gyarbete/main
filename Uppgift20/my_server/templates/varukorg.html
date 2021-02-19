@@ -17,14 +17,23 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for product in products %}
+					{% if products == False %}
 					<tr>
+						<td>Din varukorg är tom</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					{% else %}
+					{% for product in products %}
+					<tr id="produkt_id_{{product[0]}}">
 						<td>{{product[1]}}</td>
 						<td>{{product[2]}}kr</td>
 						<td>{{product[3]}}</td>
-						<td><a onclick="delete_product('{{product[0]}}')">🗑</a></td>
+						<td><button type="button" onclick="delete_product('{{product[0]}}')">🗑</button></td>
 					</tr>
 					{% endfor %}
+					{% endif %}
 				</tbody>
 			</table>
 		</div>
