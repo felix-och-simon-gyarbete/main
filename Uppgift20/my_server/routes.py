@@ -79,8 +79,11 @@ def varukorg():
     sql = 'SELECT produkter.produkt_id, produkter.namn, produkter.pris, count(*) FROM har, produkter WHERE produkter.produkt_id = har.produkt_id AND har.user_id = (?) GROUP BY produkter.namn'
     conn = create_connection()
     cur = conn.cursor()
-    products = cur.execute(sql, (user_id,))
-    return render_template('varukorg.html', products = products)
+    products = cur.execute(sql, (user_id,)).fetchall()
+    total = cur.execute('SELECT SUM(pris) FROM har, produkter WHERE produkter.produkt_id = har.produkt_id AND har.user_id = (?)', (user_id,)).fetchone()[0]
+    total = int(total)
+    antal = cur.execute('SELECT COUNT(*) FROM har, produkter WHERE produkter.produkt_id = har.produkt_id AND har.user_id = (?)', (user_id,)).fetchone()[0]
+    return render_template('varukorg.html', products = products, total = total, antal = antal)
 
 @ app.route('/newUser', methods=['POST', 'GET'])
 def newUser():

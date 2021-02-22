@@ -5,8 +5,7 @@
 {% block content %}
 <div class="container">
 	<div class="row">
-
-		<div class="col-sm-8 bg-white card">
+		<div class="col-sm-8  bg-white card">
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -37,7 +36,18 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-sm-3 bg-primary card"> dish</div>
+
+
+		<div class="col-sm-4">
+			<div class="row h-100">
+				<div class="col-sm-1"></div>
+				<div class="bg-white col-sm-11 card">	
+					<p>Hej {{session['username']}}!</p>
+					<p>Total belopp: {{total}}</p>
+					<p>Antal produkter: {{antal}}</p>
+				</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-{% endblock %}
+	{% endblock %}
