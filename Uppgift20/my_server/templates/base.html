@@ -12,7 +12,7 @@
 	<script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body class="bg-dark">
-	<div class="container min-vh-100 bg-secondary">
+	<div class="container mb-0 min-vh-100 bg-secondary">
 	
 	<header class="jumbotron jumbotron-fluid header card">{% block header %}{% endblock %}</header>
 	{% for category, message in get_flashed_messages(with_categories=True) %}
@@ -23,6 +23,12 @@
 	{% endfor %}
 	<nav class="navbar navbar-expand-sm meny">
 		<ul class="navbar-nav">
+		{% if session['admin_id'] == 1 %}
+		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('start')}}">Hem</a></li>
+		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('produkter')}}">Hantera produkter</a></li>
+		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('varukorg')}}">Hantera användare</a></li>
+		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('loggaUt')}}">Logga Ut</a></li>
+		{% else %}
 		{% if session['logged_in'] %}
 		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('start')}}">Hem</a></li>
 		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('produkter')}}">Produkter</a></li>
@@ -33,11 +39,12 @@
 		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('produkter')}}">Produkter</a></li>
 		<li class="nav-item"><a class="nav-link text-light" href="{{url_for('login')}}">Logga in</a></li>
 		{% endif %} 
+		{% endif %}
 		</ul>
 	</nav>
 	
 	<content class= "content">{% block content %}{% endblock %}</content>
-	<footer class="jumbotron mt-4 card">{% block footer %}{% endblock %}</footer>
+	<footer class="jumbotron my-4 card">{% block footer %}{% endblock %}</footer>
 	</div>
 	
 	

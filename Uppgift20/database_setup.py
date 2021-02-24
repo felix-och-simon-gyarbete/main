@@ -24,4 +24,5 @@ sql = '''CREATE TABLE IF NOT EXISTS har(
 cur.execute(sql)
 lista = [('Hamburgare', 10, "Jävligt god"), ('Cheese', 5, "Rätt schysst"), ( 'Bantningsmedel', 100, "Inte för alla"), ( 'Tjockisar', 20, "Väldigt tjocka"), ('Dampbarn',19 , "dampiga som fan"), ('Chonksel', 0, "ta med släp när ni hämtar")]
 cur.executemany("INSERT INTO produkter(namn, pris, beskrivning) VALUES (?,?,?)", lista)
+cur.execute('INSERT INTO users(password, username, admin) VALUES (?, ?, ?)', ('admin', 'admin', 1))
 conn.commit()

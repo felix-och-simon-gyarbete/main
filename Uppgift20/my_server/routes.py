@@ -30,12 +30,16 @@ def login():
         users = cur.execute('SELECT * FROM users')
         username = request.form['username']
         password = request.form['password']
-        
         for user in users:
             if user[2] == username and user[1] == password:
                 session['logged_in'] = True
                 session['username'] = username
                 session['user_id'] = get_user(username)[0]
+                conn = create_connection()
+                cur = conn.cursor()
+                print(session['user_id'])
+                cur.execute("SELECT admin FROM users WHERE user_id = (?)", (session['user_id'],))
+                session['admin_id'] =  cur.fetchone()[0]
                 flash('Du är inloggad hej då', 'info')
                 conn.close()
                 return redirect(url_for('start'))
@@ -120,5 +124,6 @@ def delete():
 def loggaUt():
     session['logged_in'] = False
     session.pop('username', None)
+    session.pop('admin', 0)
     flash('Du är nu utloggad', 'info')
     return redirect(url_for('start'))
