@@ -9,6 +9,7 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
+						<th></th>
 						<th>Namn</th>
 						<th>Pris</th>
 						<th>Antal</th>
@@ -26,6 +27,7 @@
 					{% else %}
 					{% for product in products %}
 					<tr id="produkt_id_{{product[0]}}">
+						<td><img src="static/images/{{product[0]}}.jpg" class="border-secondary" style="height:5vh"></img></td>
 						<td>{{product[1]}}</td>
 						<td>{{product[2]}}kr</td>
 						<td>{{product[3]}}</td>

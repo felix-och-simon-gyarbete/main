@@ -1,19 +1,51 @@
 {% extends 'base.html' %}
-    {% block header %}
-    <h1 class="text-center">{% block title %} Logga in {% endblock %}</h1>
-    {% endblock %}
+{% block header %}
+<h1 class="text-center">{% block title %} Logga in {% endblock %}</h1>
+{% endblock %}
 {% block content %}
-    <form action="/login" method="post">
-    <div class="form-group ">
-        <label for="username">Username</label>
-        <input id="username" class="form-control" type="text" name="username"/>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-11 card p-3">
+                    <h3>Har du redan ett konto? Logga in här</h3>
+                    <form action="/login" method="post">
+                        <div class="form-group ">
+                            <label for="username">Username</label>
+                            <input id="username" class="form-control" type="text" name="username" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input id="password" class="form-control" type="password" name="password" />
+                        </div>
+                        <input class="btn btn-outline-primary" type="submit" value="Logga in" />
+
+                    </form>
+                    <div class="col-sm-1"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-11 card p-3">
+                    <h3>Ny användare? Skapa ett konto här</h3>
+                    <form action="/newUser" method="post">
+                        <div class="form-group ">
+                            <label for="username">Välj användarnamn</label>
+                            <input id="username" class="form-control" type="text" name="username" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Välj lösenord</label>
+                            <input id="password" class="form-control" type="password" name="password" />
+                        </div>
+                        <input class="btn btn-outline-primary" type="submit" value="Skapa användare" />
+
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input id="password" class="form-control" type="password" name="password" />
-    </div>
-        <input type="submit" value="Logga in" />
-    
-    </form>
-    <a href="{{url_for('newUser')}}"><button>Skapa användare</button></a>
+</div>
+
 {% endblock %}
