@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block header %}
+<h1 class="text-center">{% block title %} Bara Bussiness! Simon och Fellans Webbshop {% endblock %}</h1>
+{% endblock %}
+{% block content %}
+<div class="card">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Namn</th>
+                <th>Användar ID</th>
+                <th>Gör till admin</th>
+                <th>Ta bort användare</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for user in users %}
+            <tr>
+                <td>{{user[2]}}</td>
+                <td>{{user[0]}}</td>
+                <td>
+                    <div class="form-check">
+                        {% if user[3] == 0 %}
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        {% else %}
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked disabled>
+                        {% endif %}
+                    </div>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+    <button class="btn btn-primary" >Spara ändringar</button>
+</div>
+{% endblock %}
