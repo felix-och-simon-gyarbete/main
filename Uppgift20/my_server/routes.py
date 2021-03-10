@@ -85,9 +85,24 @@ def varukorg():
     cur = conn.cursor()
     products = cur.execute(sql, (user_id,)).fetchall()
     total = cur.execute('SELECT SUM(pris) FROM har, produkter WHERE produkter.produkt_id = har.produkt_id AND har.user_id = (?)', (user_id,)).fetchone()[0]
-    total = int(total)
+    if not total == None or 0:
+        total = int(total)
+    else:
+        total = 0
     antal = cur.execute('SELECT COUNT(*) FROM har, produkter WHERE produkter.produkt_id = har.produkt_id AND har.user_id = (?)', (user_id,)).fetchone()[0]
+    antal = int(antal)
+    print(antal)
     return render_template('varukorg.html', products = products, total = total, antal = antal)
+@ app.route('/list_users')
+def list_users():
+    if session['admin_id'] == 0:
+        flash("Du måste vara inloggad som admin för att komma åt denna sida", "warning")
+        return render_template('index.html')
+    sql = 'SELECT * FROM users'
+    conn = create_connection()
+    cur = conn.cursor()
+    users = cur.execute(sql)
+    return render_template('list_users.html', users = users) 
 
 @ app.route('/newUser', methods=['POST', 'GET'])
 def newUser():
@@ -124,6 +139,6 @@ def delete():
 def loggaUt():
     session['logged_in'] = False
     session.pop('username', None)
-    session.pop('admin', 0)
+    session.pop('admin_id', 0)
     flash('Du är nu utloggad', 'info')
     return redirect(url_for('start'))
